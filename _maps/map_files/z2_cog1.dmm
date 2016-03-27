@@ -2675,7 +2675,7 @@
 "aZw" = (/obj/securearea{desc = "A warning sign which reads 'EXTERNAL AIRLOCK'"; icon_state = "space"; layer = 2.5; name = "VACUUM AREA"; pixel_x = 0},/turf/unsimulated/wall{icon = 'icons/turf/shuttle.dmi'; icon_state = "wall3"},/area/drone/assembly)
 "aZx" = (/obj/decal/lightshaft,/obj/decal/glow{brightness = 1; color_b = 1; color_g = 0.75; color_r = 0.75; invisibility = 101; luminosity = 0; name = "graveyard glow"},/turf/unsimulated/floor/setpieces{desc = "A strange jet black metal floor. There are odd lines carved into it."; icon = 'icons/turf/floors.dmi'; icon_state = "ancient"; name = "strange surface"},/area/crater/cave/lower)
 "aZy" = (/obj/decal/glow{brightness = 3; invisibility = 101; name = "glow - DIM REDDISH"; color_b = 0.3; color_g = 0.3; color_r = 0.4},/turf/unsimulated/wall/setpieces{desc = "A weird jet black metal wall indented with strange grooves and lines."; icon = 'icons/turf/walls.dmi'; icon_state = "ancient"; name = "stranger wall"},/area/crater/cave/lower)
-"aZz" = (/turf/unsimulated/wall{icon = 'icons/misc/fullscreen.dmi'; icon_state = "title"; layer = 60; name = "Space Station 13"; tag = "the_ss13_screen"},/area)
+"aZz" = (/turf/unsimulated/wall{icon = 'tgstationcode/fullscreen.dmi'; icon_state = "title"; layer = 60; name = "Space Station 13"; tag = "the_ss13_screen"},/area)
 "aZA" = (/turf/unsimulated/wall,/area/area_that_kills_you_if_you_enter_it)
 "aZB" = (/turf/unsimulated/floor{icon_state = "caution_north"},/area/drone/assembly)
 "aZC" = (/turf/unsimulated/floor{icon_state = "caution_east"; dir = 2},/area/drone/assembly)

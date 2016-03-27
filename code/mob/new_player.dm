@@ -92,7 +92,7 @@ mob/new_player
 		if(!spawning)
 			qdel(src)
 		return
-
+/*
 	verb/new_player_panel()
 		set src = usr
 		if(client)
@@ -119,6 +119,7 @@ mob/new_player
 
 		src << browse(output,"window=playersetup;size=250x200;can_close=0")
 */
+*/
 	Stat()
 		..()
 		statpanel("Lobby")
@@ -133,7 +134,7 @@ mob/new_player
 					else // are they a normal player or not in stealth mode/using a fake key?
 						stat("[player.key]", (player.ready)?("(Playing)"):(null)) // show them normally
 		stat("Map:", MAP_NAME)
-
+/*
 	Topic(href, href_list[])
 		if(href_list["show_preferences"])
 			client.preferences.ShowChoices(src)
@@ -201,7 +202,7 @@ mob/new_player
 				client.preferences.process_link(src, href_list)
 		else if(!href_list["late_join"])
 			new_player_panel()
-
+*/
 	proc/IsJobAvailable(var/datum/job/JOB)
 		if(!ticker || !ticker.mode)
 			return 0
