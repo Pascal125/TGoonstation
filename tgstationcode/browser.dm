@@ -31,7 +31,7 @@
 		height = nheight
 	if (nref)
 		ref = nref
-	add_stylesheet("common", 'tgstationcode/browser/common.css') // this CSS sheet is common to all UIs
+	add_stylesheet("common", 'tgstationcode/common.css') // this CSS sheet is common to all UIs
 
 /datum/browser/proc/add_head_content(nhead_content)
 	head_content = nhead_content
