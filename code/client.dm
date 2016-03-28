@@ -179,7 +179,7 @@ var/global/list/hellbans = null
 	src.authorize()
 
 	if (admins.Find(src.ckey))
-		src.control_freak = CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
+		control_freak = CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 		src.holder = new /datum/admins(src)
 		src.holder.rank = admins[src.ckey]
 		update_admins(admins[src.ckey])
@@ -214,10 +214,10 @@ var/global/list/hellbans = null
 					src << browse_rsc(file("browserassets/images/changelog/postcardsmall.jpg"))
 					src << browse_rsc(file("browserassets/images/changelog/somerights20.png"))
 					src << browse_rsc(file("browserassets/images/changelog/88x31.png"))
-				changes()
+				//changes()
 
-			if (src.holder && rank_to_level(src.holder.rank) >= LEVEL_MOD) // No admin changelog for goat farts (Convair880).
-				admin_changes()
+			//if (src.holder && rank_to_level(src.holder.rank) >= LEVEL_MOD) // No admin changelog for goat farts (Convair880).
+			//	admin_changes()
 			load_antag_tokens()
 			if (src.byond_version < 509)
 				if (alert(src, "Please update BYOND to version 509! Would you like to be taken to the download page?", "ALERT", "Yes", "No") == "Yes")
