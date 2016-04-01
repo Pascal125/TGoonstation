@@ -441,13 +441,13 @@ var/obj/item/dummy/click_dummy = new
 		b = _b
 		a = _a
 
-	// return in #RRGGBB hex form
-	proc/to_rgb()
-		return rgb(r,g,b)
+// return in #RRGGBB hex form
+/datum/color/proc/to_rgb()
+	return rgb(r,g,b)
 
-	// return in #RRGGBBAA hex form
-	proc/to_rgba()
-		return rgb(r,g,b,a)
+// return in #RRGGBBAA hex form
+/datum/color/proc/to_rgba()
+	return rgb(r,g,b,a)
 
 
 /area/proc/move_contents_to(var/area/A, var/turftoleave=null)
@@ -577,7 +577,7 @@ var/obj/item/dummy/click_dummy = new
 
 
 // return description of how full a container is
-proc/get_fullness(var/percent)
+/proc/get_fullness(var/percent)
 
 	if(percent == 0)
 		return "empty"
@@ -607,7 +607,7 @@ proc/get_fullness(var/percent)
 
 // return description of transparency/opaqueness
 
-proc/get_opaqueness(var/trans)	// 0=transparent, 255=fully opaque
+/proc/get_opaqueness(var/trans)	// 0=transparent, 255=fully opaque
 	if(trans < 25)
 		return "clear"
 	if(trans < 60)
@@ -618,5 +618,5 @@ proc/get_opaqueness(var/trans)	// 0=transparent, 255=fully opaque
 		return "dense"
 	return "opaque"
 
-proc/LoadSavefile(name)
+/proc/LoadSavefile(name)
 	. = new/savefile(name)

@@ -73,13 +73,13 @@
 
 	// Records the world.tick_usage (0 to 100) at which the process last began running
 	/var/tmp/tick_start = 0
-	
+
 	// Records the total usage of the current run, each 100 = 1 byond tick
 	/var/tmp/current_usage = 0
-	
+
 	// Records the total usage of the last run, each 100 = 1 byond tick
-	/var/tmp/last_usage = 0	
-	
+	/var/tmp/last_usage = 0
+
 	// Records the total usage over the life of the process, each 100 = 1 byond tick
 	/var/tmp/total_usage = 0
 
@@ -119,7 +119,7 @@ datum/controller/process/proc/started()
 
 	// Initialize tick_start so we can know when to sleep
 	tick_start = world.tick_usage
-	
+
 	// Initialize the cpu usage counter
 	current_usage = 0
 
@@ -137,7 +137,7 @@ datum/controller/process/proc/finished()
 	last_usage = current_usage
 	current_usage = 0
 	idle()
-	main.processFinished(src)	
+	main.processFinished(src)
 
 	onFinish()
 
@@ -252,7 +252,7 @@ datum/controller/process/proc/getElapsedTime()
 	return TimeOfHour - run_start
 
 datum/controller/process/proc/getAverageUsage()
-	
+
 
 datum/controller/process/proc/tickDetail()
 	return
@@ -314,7 +314,7 @@ datum/controller/process/proc/_copyStateFrom(var/datum/controller/process/target
 	schedule_interval = target.schedule_interval
 	last_slept = 0
 	run_start = 0
-	tick_start = 0	
+	tick_start = 0
 	last_usage = 0
 	total_usage = 0
 	times_killed = target.times_killed

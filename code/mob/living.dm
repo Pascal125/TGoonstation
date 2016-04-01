@@ -1,5 +1,5 @@
 // living
-
+#define DEATHSHUTTLEDELAY 108000
 /mob/living
 	var/t_plasma = null
 	var/t_oxygen = null
@@ -87,12 +87,12 @@
 
 /mob/living/death(gibbed)
 	if (src.key) statlog_death(src,gibbed)
-	if (src.client && (ticker.round_elapsed_ticks >= 12000))
+	if (src.client && (ticker.round_elapsed_ticks >= DEATHSHUTTLEDELAY))
 		var/num_players = 0
 		for(var/mob/players in mobs)
 			if (players.client && players.stat != 2) num_players++
 
-		if (num_players <= 5)
+		if (num_players <= 0)
 			if (!emergency_shuttle.online && ticker && ticker.current_state != GAME_STATE_FINISHED && ticker.mode.crew_shortage_enabled && config.deadshuttle)
 				emergency_shuttle.incall()
 				boutput(world, "<span style=\"color:blue\"><B>Alert: Due to crew shortages and fatalities, the emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.</B></span>")
@@ -1069,3 +1069,6 @@
 		mob_static_icons.Add(src.static_image)
 		DEBUG(bicon(src.static_image))
 		return src.static_image
+
+
+#undef DEATHSHUTTLEDELAY

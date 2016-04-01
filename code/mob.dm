@@ -484,7 +484,6 @@
 // medals
 
 /mob/proc/unlock_medal(title, announce)
-	return //No medals 4 u
 
 	if (!src.client || !src.key)
 		return

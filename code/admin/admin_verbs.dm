@@ -15,6 +15,7 @@ var/list/admin_verbs = list(
 /client/proc/admin_changes,\
 /client/proc/admin_play,\
 /client/proc/admin_observe,\
+/client/proc/admin_ghost,\
 /client/proc/voting,\
 /client/proc/game_panel,\
 /client/proc/player_panel,\
@@ -90,9 +91,6 @@ var/list/admin_verbs = list(
 /client/proc/narrator_mode,\
 /client/proc/admin_pick_random_player,\
 
-#ifdef SERVERTOOLS
-/client/proc/adminchangemap,\
-#endif
 
 /datum/admins/proc/delay_start,\
 /datum/admins/proc/delay_end,\
@@ -311,6 +309,10 @@ var/list/admin_verbs = list(
 /client/proc/import_banlist,\
 */
 
+#ifdef SERVERTOOLS
+/client/proc/adminchangemap,\
+#endif
+
 /client/proc/ticklag,\
 /client/proc/cmd_debug_vox,\
 /datum/admins/proc/spawn_atom,\
@@ -500,6 +502,7 @@ var/list/special_pa_observing_verbs = list(\
 /client/proc/admin_observe()
 	set category = "Admin"
 	set name = "Set Observe"
+	set hidden = 1
 	if(!src.holder)
 		alert("You are not an admin")
 		return
@@ -527,6 +530,8 @@ var/list/special_pa_observing_verbs = list(\
 /client/proc/admin_play()
 	set category = "Admin"
 	set name = "Set Play"
+	set hidden = 1
+
 	if(!src.holder)
 		alert("You are not an admin")
 		return
@@ -557,6 +562,36 @@ var/list/special_pa_observing_verbs = list(\
 				boutput(src, "[M.key] is observing - [M.client.holder.state]")
 			else
 				boutput(src, "[M.key] is undefined - [M.client.holder.state]")
+
+
+/client/proc/admin_ghost()
+	set category = "Admin"
+	set name = "Aghost"
+	if(!src.holder)
+		alert("You are not an admin")
+		return
+
+	src.verbs -= /client/proc/admin_ghost
+	spawn( 100 )
+		src.verbs += /client/proc/admin_ghost
+
+	if(!src.holder.popuptoggle) //Hrngh
+		var/rank = src.holder.rank
+		clear_admin_verbs()
+		if(!istype(src.mob, /mob/dead/observer) && !istype(src.mob, /mob/dead/target_observer))
+			src.holder.state = 2
+		else
+			src.holder.state = 1
+
+	//	src.mob.mind.observing = 1
+		update_admins(rank)
+	if(!istype(src.mob, /mob/dead/observer) && !istype(src.mob, /mob/dead/target_observer))
+		src.mob.ghostize()
+		boutput(src, "<span style=\"color:blue\">You are now observing</span>")
+	else
+		boutput(src, "<span style=\"color:blue\">You are now playing</span>")
+		src.mob:reenter_corpse()
+
 
 //admin client procs ported over from mob.dm
 

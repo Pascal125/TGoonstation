@@ -1,4 +1,4 @@
-proc/bball_nova()
+/proc/bball_nova()
 	set category = "Spells"
 	set name = "B-Ball Nova"
 	set desc = "Causes an eruption of explosive basketballs from your location"
@@ -147,7 +147,7 @@ proc/bball_nova()
 
 	playsound(M.loc, "sound/weapons/flashbang.ogg", 50, 1)
 
-proc/blitz_slam()
+/proc/blitz_slam()
 	set category = "Spells"
 	set name = "Blitz Slam"
 	set desc="Teleport randomly to a nearby tile."

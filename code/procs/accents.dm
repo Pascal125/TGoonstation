@@ -11,7 +11,7 @@
 	var/next_next_char = ""
 	var/next_next_next_char = ""
 
-	New(var/str)
+/datum/text_roamer/New(var/str)
 		if(isnull(str))	qdel(src)
 		string = str
 		curr_char_pos = 1
@@ -19,101 +19,101 @@
 		if(length(string) > 1) next_char = copytext(string,curr_char_pos+1,curr_char_pos+2)
 		if(length(string) > 2) next_next_char = copytext(string,curr_char_pos+2,curr_char_pos+3)
 		if(length(string) > 3) next_next_next_char = copytext(string,curr_char_pos+3,curr_char_pos+4)
-	proc
 
-		in_word()
-			if(prev_char != "" && prev_char != " " && next_char != "" && next_char != " ") return 1
-			else return 0
 
-		end_of_word()
-			if(prev_char != "" && prev_char != " " && (next_char == "" || next_char == " ") ) return 1
-			else return 0
+/datum/text_roamer/proc/in_word()
+	if(prev_char != "" && prev_char != " " && next_char != "" && next_char != " ") return 1
+	else return 0
 
-		alone()
-			if((prev_char == "" || prev_char == " ") && (next_char == "" || next_char == " ") ) return 1
-			else return 0
+/datum/text_roamer/proc/end_of_word()
+	if(prev_char != "" && prev_char != " " && (next_char == "" || next_char == " ") ) return 1
+	else return 0
 
-		update()
-			curr_char = copytext(string,curr_char_pos,curr_char_pos+1)
+/datum/text_roamer/proc/alone()
+	if((prev_char == "" || prev_char == " ") && (next_char == "" || next_char == " ") ) return 1
+	else return 0
 
-			if(curr_char_pos + 1 <= length(string))
-				next_char = copytext(string,curr_char_pos+1,curr_char_pos+2)
-			else
-				next_char = ""
+/datum/text_roamer/proc/update()
+	curr_char = copytext(string,curr_char_pos,curr_char_pos+1)
 
-			if(curr_char_pos + 2 <= length(string))
-				next_next_char = copytext(string,curr_char_pos+2,curr_char_pos+3)
-			else
-				next_next_char = ""
+	if(curr_char_pos + 1 <= length(string))
+		next_char = copytext(string,curr_char_pos+1,curr_char_pos+2)
+	else
+		next_char = ""
 
-			if(curr_char_pos + 3 <= length(string))
-				next_next_next_char = copytext(string,curr_char_pos+3,curr_char_pos+4)
-			else
-				next_next_next_char = ""
+	if(curr_char_pos + 2 <= length(string))
+		next_next_char = copytext(string,curr_char_pos+2,curr_char_pos+3)
+	else
+		next_next_char = ""
 
-			if(curr_char_pos - 1  >= 1)
-				prev_char = copytext(string,curr_char_pos-1,curr_char_pos)
-			else
-				prev_char = ""
+	if(curr_char_pos + 3 <= length(string))
+		next_next_next_char = copytext(string,curr_char_pos+3,curr_char_pos+4)
+	else
+		next_next_next_char = ""
 
-			return
+	if(curr_char_pos - 1  >= 1)
+		prev_char = copytext(string,curr_char_pos-1,curr_char_pos)
+	else
+		prev_char = ""
 
-		next()
-			if(curr_char_pos + 1 <= length(string))
-				curr_char_pos++
+	return
 
-			curr_char = copytext(string,curr_char_pos,curr_char_pos+1)
+/datum/text_roamer/proc/next()
+	if(curr_char_pos + 1 <= length(string))
+		curr_char_pos++
 
-			if(curr_char_pos + 1 <= length(string))
-				next_char = copytext(string,curr_char_pos+1,curr_char_pos+2)
-			else
-				next_char = ""
+	curr_char = copytext(string,curr_char_pos,curr_char_pos+1)
 
-			if(curr_char_pos + 2 <= length(string))
-				next_next_char = copytext(string,curr_char_pos+2,curr_char_pos+3)
-			else
-				next_next_char = ""
+	if(curr_char_pos + 1 <= length(string))
+		next_char = copytext(string,curr_char_pos+1,curr_char_pos+2)
+	else
+		next_char = ""
 
-			if(curr_char_pos + 3 <= length(string))
-				next_next_next_char = copytext(string,curr_char_pos+3,curr_char_pos+4)
-			else
-				next_next_next_char = ""
+	if(curr_char_pos + 2 <= length(string))
+		next_next_char = copytext(string,curr_char_pos+2,curr_char_pos+3)
+	else
+		next_next_char = ""
 
-			if(curr_char_pos - 1  >= 1)
-				prev_char = copytext(string,curr_char_pos-1,curr_char_pos)
-			else
-				prev_char = ""
+	if(curr_char_pos + 3 <= length(string))
+		next_next_next_char = copytext(string,curr_char_pos+3,curr_char_pos+4)
+	else
+		next_next_next_char = ""
 
-			return
+	if(curr_char_pos - 1  >= 1)
+		prev_char = copytext(string,curr_char_pos-1,curr_char_pos)
+	else
+		prev_char = ""
 
-		prev()
+	return
 
-			if(curr_char_pos - 1 >= 1)
-				curr_char_pos--
+/datum/text_roamer/proc/prev()
 
-			curr_char = copytext(string,curr_char_pos,curr_char_pos+1)
+	if(curr_char_pos - 1 >= 1)
+		curr_char_pos--
 
-			if(curr_char_pos + 1 <= length(string))
-				next_char = copytext(string,curr_char_pos+1,curr_char_pos+2)
-			else
-				next_char = ""
+	curr_char = copytext(string,curr_char_pos,curr_char_pos+1)
 
-			if(curr_char_pos + 2 <= length(string))
-				next_next_char = copytext(string,curr_char_pos+2,curr_char_pos+3)
-			else
-				next_next_char = ""
+	if(curr_char_pos + 1 <= length(string))
+		next_char = copytext(string,curr_char_pos+1,curr_char_pos+2)
+	else
+		next_char = ""
 
-			if(curr_char_pos + 3 <= length(string))
-				next_next_next_char = copytext(string,curr_char_pos+3,curr_char_pos+4)
-			else
-				next_next_next_char = ""
+	if(curr_char_pos + 2 <= length(string))
+		next_next_char = copytext(string,curr_char_pos+2,curr_char_pos+3)
+	else
+		next_next_char = ""
 
-			if(curr_char_pos - 1  >= 1)
-				prev_char = copytext(string,curr_char_pos-1,curr_char_pos)
-			else
-				prev_char = ""
+	if(curr_char_pos + 3 <= length(string))
+		next_next_next_char = copytext(string,curr_char_pos+3,curr_char_pos+4)
+	else
+		next_next_next_char = ""
 
-			return
+	if(curr_char_pos - 1  >= 1)
+		prev_char = copytext(string,curr_char_pos-1,curr_char_pos)
+	else
+		prev_char = ""
+
+	return
 
 /proc/elvis_parse(var/datum/text_roamer/R)
 	var/new_string = ""
@@ -562,51 +562,51 @@
 
 //those go UP
 var/list/zalgo_up = list(
-	"&#x030d;", 		"&#x030e;", 		"&#x0304;", 		"&#x0305;", 
-	"&#x033f;", 		"&#x0311;", 		"&#x0306;", 		"&#x0310;", 
-	"&#x0352;", 		"&#x0357;", 		"&#x0351;", 		"&#x0307;", 
-	"&#x0308;", 		"&#x030a;", 		"&#x0342;", 		"&#x0343;", 
-	"&#x0344;", 		"&#x034a;", 		"&#x034b;", 		"&#x034c;", 
-	"&#x0303;", 		"&#x0302;", 		"&#x030c;", 		"&#x0350;", 
-	"&#x0300;", 		"&#x0301;", 		"&#x030b;", 		"&#x030f;", 
-	"&#x0312;", 		"&#x0313;", 		"&#x0314;", 		"&#x033d;", 
-	"&#x0309;", 		"&#x0363;", 		"&#x0364;", 		"&#x0365;", 
-	"&#x0366;", 		"&#x0367;", 		"&#x0368;", 		"&#x0369;", 
-	"&#x036a;", 		"&#x036b;", 		"&#x036c;", 		"&#x036d;", 
-	"&#x036e;", 		"&#x036f;", 		"&#x033e;", 		"&#x035b;", 
-	"&#x0346;", 		"&#x031a;" 
+	"&#x030d;", 		"&#x030e;", 		"&#x0304;", 		"&#x0305;",
+	"&#x033f;", 		"&#x0311;", 		"&#x0306;", 		"&#x0310;",
+	"&#x0352;", 		"&#x0357;", 		"&#x0351;", 		"&#x0307;",
+	"&#x0308;", 		"&#x030a;", 		"&#x0342;", 		"&#x0343;",
+	"&#x0344;", 		"&#x034a;", 		"&#x034b;", 		"&#x034c;",
+	"&#x0303;", 		"&#x0302;", 		"&#x030c;", 		"&#x0350;",
+	"&#x0300;", 		"&#x0301;", 		"&#x030b;", 		"&#x030f;",
+	"&#x0312;", 		"&#x0313;", 		"&#x0314;", 		"&#x033d;",
+	"&#x0309;", 		"&#x0363;", 		"&#x0364;", 		"&#x0365;",
+	"&#x0366;", 		"&#x0367;", 		"&#x0368;", 		"&#x0369;",
+	"&#x036a;", 		"&#x036b;", 		"&#x036c;", 		"&#x036d;",
+	"&#x036e;", 		"&#x036f;", 		"&#x033e;", 		"&#x035b;",
+	"&#x0346;", 		"&#x031a;"
 )
 
 //those go DOWN
 var/list/zalgo_down = list(
-	"&#x0316;", 		"&#x0317;", 		"&#x0318;", 		"&#x0319;", 
-	"&#x031c;", 		"&#x031d;", 		"&#x031e;", 		"&#x031f;", 
-	"&#x0320;", 		"&#x0324;", 		"&#x0325;", 		"&#x0326;", 
-	"&#x0329;", 		"&#x032a;", 		"&#x032b;", 		"&#x032c;", 
-	"&#x032d;", 		"&#x032e;", 		"&#x032f;", 		"&#x0330;", 
-	"&#x0331;", 		"&#x0332;", 		"&#x0333;", 		"&#x0339;", 
-	"&#x033a;", 		"&#x033b;", 		"&#x033c;", 		"&#x0345;", 
-	"&#x0347;", 		"&#x0348;", 		"&#x0349;", 		"&#x034d;", 
-	"&#x034e;", 		"&#x0353;", 		"&#x0354;", 		"&#x0355;", 
-	"&#x0356;", 		"&#x0359;", 		"&#x035a;", 		"&#x0323;" 
+	"&#x0316;", 		"&#x0317;", 		"&#x0318;", 		"&#x0319;",
+	"&#x031c;", 		"&#x031d;", 		"&#x031e;", 		"&#x031f;",
+	"&#x0320;", 		"&#x0324;", 		"&#x0325;", 		"&#x0326;",
+	"&#x0329;", 		"&#x032a;", 		"&#x032b;", 		"&#x032c;",
+	"&#x032d;", 		"&#x032e;", 		"&#x032f;", 		"&#x0330;",
+	"&#x0331;", 		"&#x0332;", 		"&#x0333;", 		"&#x0339;",
+	"&#x033a;", 		"&#x033b;", 		"&#x033c;", 		"&#x0345;",
+	"&#x0347;", 		"&#x0348;", 		"&#x0349;", 		"&#x034d;",
+	"&#x034e;", 		"&#x0353;", 		"&#x0354;", 		"&#x0355;",
+	"&#x0356;", 		"&#x0359;", 		"&#x035a;", 		"&#x0323;"
 )
 
 //those always stay in the middle
 var/list/zalgo_mid = list(
-	"&#x0315;", 		"&#x031b;", 		"&#x0340;", 		"&#x0341;", 
-	"&#x0358;", 		"&#x0321;", 		"&#x0322;", 		"&#x0327;", 
-	"&#x0328;", 		"&#x0334;", 		"&#x0335;", 		"&#x0336;", 
-	"&#x034f;", 		"&#x035c;", 		"&#x035d;", 		"&#x035e;", 
-	"&#x035f;", 		"&#x0360;", 		"&#x0362;", 		"&#x0338;", 
-	"&#x0337;", 		"&#x0361;", 		"&#x0489;" 		
+	"&#x0315;", 		"&#x031b;", 		"&#x0340;", 		"&#x0341;",
+	"&#x0358;", 		"&#x0321;", 		"&#x0322;", 		"&#x0327;",
+	"&#x0328;", 		"&#x0334;", 		"&#x0335;", 		"&#x0336;",
+	"&#x034f;", 		"&#x035c;", 		"&#x035d;", 		"&#x035e;",
+	"&#x035f;", 		"&#x0360;", 		"&#x0362;", 		"&#x0338;",
+	"&#x0337;", 		"&#x0361;", 		"&#x0489;"
 )
 
 /proc/zalgoify(var/message, var/up, var/mid, var/down)
 	if(!message)
 		return
-	
+
 	var/new_string = ""
-		
+
 	for (var/i = 1, i <= length(message), i++)
 		var/char = copytext(message, i, i+1)
 		new_string += char
@@ -616,5 +616,5 @@ var/list/zalgo_mid = list(
 			new_string += pick(zalgo_mid)
 		for(var/j = 0, j < down, j++)
 			new_string += pick(zalgo_down)
-	
+
 	return new_string

@@ -56,91 +56,91 @@ datum/mind
 			key = M.key
 			src.handwriting = pick(handwriting_styles)
 
-	proc/transfer_to(mob/new_character)
-		if (!new_character)
-			return
+datum/mind/proc/transfer_to(mob/new_character)
+	if (!new_character)
+		return
 
-		if (current)
-			current.mind = null
+	if (current)
+		current.mind = null
 
-		new_character.mind = src
-		current = new_character
+	new_character.mind = src
+	current = new_character
 
-		new_character.key = key
+	new_character.key = key
 
-		//if (is_changeling)
-		//	new_character.make_changeling()
+	//if (is_changeling)
+	//	new_character.make_changeling()
 
-		for (var/intrinsic_verb in intrinsic_verbs)
-			new_character.verbs += intrinsic_verb
+	for (var/intrinsic_verb in intrinsic_verbs)
+		new_character.verbs += intrinsic_verb
 
-	proc/swap_with(mob/target)
-		var/datum/mind/other_mind = target.mind
-		var/mob/my_old_mob = current
+datum/mind/proc/swap_with(mob/target)
+	var/datum/mind/other_mind = target.mind
+	var/mob/my_old_mob = current
 
-		if (other_mind)	//They have a mind so we can do this nicely
-			if (isobserver(current))
-				current:delete_on_logout = 0
-			if (isobserver(target))
-				target:delete_on_logout = 0
-
-			var/mob/temp = new/mob(src.current.loc) //We need to put whoever we're swapping with somewhere
-			other_mind.transfer_to(temp)			//So now we put them there
-			src.transfer_to(target)					//Then I go into their head
-			other_mind.transfer_to(my_old_mob)		//And they go into my old one
-			qdel(temp)								//Not needed any more
-
-		else if (!target.client && !target.key) 	//They didn't have a mind and didn't have an associated player, AKA up for grabs
-			src.transfer_to(target)
-
-		else	//The Ugly Way
-			if (isobserver(current))
-				current:delete_on_logout = 0
-			if (isobserver(target))
-				target:delete_on_logout = 0
-
-			var/mob/temp = new/mob(src.current.loc) //We need to put whoever we're swapping with somewhere
-			temp.key = target.key					//So now we put them there
-			src.transfer_to(target)					//Then I go into their head
-			my_old_mob.key = temp.key
-			qdel(temp)								//Not needed any more
-
+	if (other_mind)	//They have a mind so we can do this nicely
 		if (isobserver(current))
-			current:delete_on_logout = 1
+			current:delete_on_logout = 0
 		if (isobserver(target))
-			target:delete_on_logout = 1
+			target:delete_on_logout = 0
 
-	proc/store_memory(new_text)
-		memory += "[new_text]<BR>"
+		var/mob/temp = new/mob(src.current.loc) //We need to put whoever we're swapping with somewhere
+		other_mind.transfer_to(temp)			//So now we put them there
+		src.transfer_to(target)					//Then I go into their head
+		other_mind.transfer_to(my_old_mob)		//And they go into my old one
+		qdel(temp)								//Not needed any more
 
-	proc/show_memory(mob/recipient)
-		var/output = "<B>[current.real_name]'s Memory</B><HR>"
-		output += memory
+	else if (!target.client && !target.key) 	//They didn't have a mind and didn't have an associated player, AKA up for grabs
+		src.transfer_to(target)
 
-		if (objectives.len>0)
-			output += "<HR><B>Objectives:</B>"
+	else	//The Ugly Way
+		if (isobserver(current))
+			current:delete_on_logout = 0
+		if (isobserver(target))
+			target:delete_on_logout = 0
 
-			var/obj_count = 1
-			for (var/datum/objective/objective in objectives)
-				output += "<B>Objective #[obj_count]</B>: [objective.explanation_text]<br>"
-				obj_count++
+		var/mob/temp = new/mob(src.current.loc) //We need to put whoever we're swapping with somewhere
+		temp.key = target.key					//So now we put them there
+		src.transfer_to(target)					//Then I go into their head
+		my_old_mob.key = temp.key
+		qdel(temp)								//Not needed any more
 
-		// Added (Convair880).
-		if (recipient.mind.master)
-			var/mob/mymaster = whois_ckey_to_mob_reference(recipient.mind.master)
-			if (mymaster)
-				output+= "<br><b>Your master:</b> [mymaster.real_name]"
+	if (isobserver(current))
+		current:delete_on_logout = 1
+	if (isobserver(target))
+		target:delete_on_logout = 1
 
-		recipient << browse(output,"window=memory")
+datum/mind/proc/store_memory(new_text)
+	memory += "[new_text]<BR>"
 
-	proc/set_miranda(new_text)
-		miranda = new_text
+datum/mind/proc/show_memory(mob/recipient)
+	var/output = "<B>[current.real_name]'s Memory</B><HR>"
+	output += memory
 
-	proc/show_miranda(mob/recipient)
-		var/output = "<B>[current.real_name]'s Miranda Rights</B><HR>[miranda]"
+	if (objectives.len>0)
+		output += "<HR><B>Objectives:</B>"
 
-		recipient << browse(output,"window=miranda")
+		var/obj_count = 1
+		for (var/datum/objective/objective in objectives)
+			output += "<B>Objective #[obj_count]</B>: [objective.explanation_text]<br>"
+			obj_count++
 
-	Del()
-		logTheThing("debug", null, null, "<b>Mind</b> Mind for \[[src.key ? src.key : "NO KEY"]] deleted!")
-		..()
+	// Added (Convair880).
+	if (recipient.mind.master)
+		var/mob/mymaster = whois_ckey_to_mob_reference(recipient.mind.master)
+		if (mymaster)
+			output+= "<br><b>Your master:</b> [mymaster.real_name]"
+
+	recipient << browse(output,"window=memory")
+
+datum/mind/proc/set_miranda(new_text)
+	miranda = new_text
+
+datum/mind/proc/show_miranda(mob/recipient)
+	var/output = "<B>[current.real_name]'s Miranda Rights</B><HR>[miranda]"
+
+	recipient << browse(output,"window=miranda")
+
+datum/mind/Del()
+	logTheThing("debug", null, null, "<b>Mind</b> Mind for \[[src.key ? src.key : "NO KEY"]] deleted!")
+	..()

@@ -90,7 +90,7 @@ var/global/obj/flashDummy
 	if(wattage && istype(target, /mob/living)) //Probably unsafe.
 		target:shock(from, wattage, "chest", 1, 1)
 
-proc/castRay(var/atom/A, var/Angle, var/Distance) //Adapted from some forum stuff. Takes some sort of bizzaro angles ?! Aahhhhh
+/proc/castRay(var/atom/A, var/Angle, var/Distance) //Adapted from some forum stuff. Takes some sort of bizzaro angles ?! Aahhhhh
 	var/list/crossed = list()
 	var/xPlus=cos(Angle)
 	var/yPlus=sin(Angle)
@@ -109,11 +109,11 @@ proc/castRay(var/atom/A, var/Angle, var/Distance) //Adapted from some forum stuf
 			if(!(T in crossed)) crossed.Add(T)
 	return crossed
 
-proc/atan2(x, y)
+/proc/atan2(x, y)
     if(!x && !y) return 0
     return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
 
-proc/get_angle(atom/a, atom/b)
+/proc/get_angle(atom/a, atom/b)
     return atan2(b.y - a.y, b.x - a.x)
 
 /*
